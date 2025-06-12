@@ -5,9 +5,7 @@ import com.example.desafio_spring_boot.exceptions.UserNotFoundException;
 import com.example.desafio_spring_boot.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,19 +31,14 @@ public class UsuarioService {
     }
 
     public Usuario atualizar(Integer id, Usuario usuario){
-        Optional<Usuario> optional = usuarioRepository.findById(id);
-        if(optional.isPresent()){
-            usuario.setId(id);
-            return usuarioRepository.save(usuario);
-        }
-        return null;
+        listarPorId(id); //valido que existe no banco de dados
+        usuario.setId(id);
+        return usuarioRepository.save(usuario);
     }
 
     public void deletar(Integer id){
-        Optional<Usuario> optional = usuarioRepository.findById(id);
-        if(optional.isPresent()) {
-            usuarioRepository.delete(optional.get());
-        }
+        Usuario user= listarPorId(id);
+        usuarioRepository.delete(user);
     }
 
 }

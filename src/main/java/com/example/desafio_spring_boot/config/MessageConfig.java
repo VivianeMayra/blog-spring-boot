@@ -19,7 +19,6 @@ public class MessageConfig {
 
     @Bean
     public LocalValidatorFactoryBean getValidator() {
-        System.out.println("Bean de validação carregado ✅");
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
         bean.setValidationMessageSource(messageSource());
         return bean;
