@@ -2,23 +2,23 @@ package com.example.desafio_spring_boot.controllers;
 
 import com.example.desafio_spring_boot.Models.Usuario;
 import com.example.desafio_spring_boot.services.UsuarioService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
-    @Autowired
-    UsuarioService usuarioService;
+    private final UsuarioService usuarioService;
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public void cadastrar(@RequestBody Usuario usuario){
+    public void cadastrar(@RequestBody @Valid Usuario usuario){
         usuarioService.criar(usuario);
     }
 
@@ -33,7 +33,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public Usuario atualizarUsuario(@PathVariable Integer id,@RequestBody Usuario usuario){
+    public Usuario atualizarUsuario(@PathVariable Integer id,@RequestBody @Valid Usuario usuario){
         return usuarioService.atualizar(id, usuario);
     }
 

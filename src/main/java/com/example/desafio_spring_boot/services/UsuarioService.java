@@ -1,21 +1,19 @@
 package com.example.desafio_spring_boot.services;
 
 import com.example.desafio_spring_boot.Models.Usuario;
+import com.example.desafio_spring_boot.exceptions.UserNotFoundException;
 import com.example.desafio_spring_boot.repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UsuarioService {
 
-    @Autowired
-    UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
     public void criar(Usuario usuario){
         usuarioRepository.save(usuario);
@@ -30,11 +28,8 @@ public class UsuarioService {
     //Optional é uma classe  e representa um container que pode ou não conter um valor não nulo (diferente de null).
     //Evita NullPointerException
     public Usuario listarPorId(Integer id){
-      Optional<Usuario> optional = usuarioRepository.findById(id);
-      if(optional.isPresent()){
-          return optional.get();
-      }
-      return null;
+      return usuarioRepository.findById(id).orElseThrow(() ->
+              new UserNotFoundException("Usuário com Id:" + id + " não encontrado."));
     }
 
     public Usuario atualizar(Integer id, Usuario usuario){
