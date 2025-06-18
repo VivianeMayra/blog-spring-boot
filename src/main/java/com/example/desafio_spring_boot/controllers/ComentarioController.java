@@ -1,5 +1,6 @@
 package com.example.desafio_spring_boot.controllers;
 import com.example.desafio_spring_boot.Models.Comentario;
+import com.example.desafio_spring_boot.dto.ComentarioDTO;
 import com.example.desafio_spring_boot.services.ComentarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +18,8 @@ public class ComentarioController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public void criarComentario(@RequestBody @Valid Comentario comentario){
-        comentarioService.criar(comentario);
+    public void criarComentario(@RequestBody @Valid ComentarioDTO comentarioDTO){
+        comentarioService.criar(comentarioDTO);
     }
 
     @GetMapping

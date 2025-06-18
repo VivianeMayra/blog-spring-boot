@@ -63,8 +63,8 @@ public class Comentario {
         return autor;
     }
 
-    public void setId(Integer id){
-        this.id = id;
+    public Postagem getPostagem(){
+        return postagem;
     }
 
     public void setConteudo(String conteudo){
@@ -75,12 +75,12 @@ public class Comentario {
         this.dataCriacao = dataCriacao;
     }
 
-    public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
-        this.dataAtualizacao = dataAtualizacao;
-    }
-
     public void setAutor(Usuario autor) {
         this.autor = autor;
+    }
+
+    public void setPostagem(Postagem postagem){
+        this.postagem = postagem;
     }
 
     public Comentario(String conteudo, LocalDateTime dataCriacao, Usuario autor, Postagem postagem){

@@ -2,19 +2,38 @@ package com.example.desafio_spring_boot.services;
 
 import com.example.desafio_spring_boot.Models.Comentario;
 import com.example.desafio_spring_boot.Models.Postagem;
+import com.example.desafio_spring_boot.Models.Usuario;
+import com.example.desafio_spring_boot.dto.ComentarioDTO;
+import com.example.desafio_spring_boot.exceptions.PostNotFoundException;
+import com.example.desafio_spring_boot.exceptions.UserNotFoundException;
 import com.example.desafio_spring_boot.repository.ComentarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.desafio_spring_boot.repository.PostagemRepository;
+import com.example.desafio_spring_boot.repository.UsuarioRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ComentarioService {
+    private final ComentarioRepository comentarioRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final PostagemRepository postagemRepository;
 
-    @Autowired
-    ComentarioRepository comentarioRepository;
+    public void criar(ComentarioDTO comentarioDTO){
+        Usuario autor = usuarioRepository.findById(comentarioDTO.getAutorId()).orElseThrow(
+                () -> new UserNotFoundException("Usuário com Id:" + comentarioDTO.getAutorId() + " não encontrado."));
 
-    public void criar(Comentario comentario){
+
+        Postagem postagem = postagemRepository.findById(comentarioDTO.getPostagemId()).orElseThrow(
+                () -> new PostNotFoundException("Postagem com Id: " + comentarioDTO.getPostagemId() + " não encontrado."));
+
+        Comentario comentario = new Comentario();
+        comentario.setConteudo(comentarioDTO.getConteudo());
+        comentario.setDataCriacao(comentarioDTO.getDataCriacao());
+        comentario.setAutor(autor);
+        comentario.setPostagem(postagem);
+
         comentarioRepository.save(comentario);
     }
 

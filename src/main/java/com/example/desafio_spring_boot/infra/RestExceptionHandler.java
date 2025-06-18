@@ -1,5 +1,6 @@
 package com.example.desafio_spring_boot.infra;
 
+import com.example.desafio_spring_boot.exceptions.PostNotFoundException;
 import com.example.desafio_spring_boot.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     private ResponseEntity<String> userNotFoundHandler(UserNotFoundException exception){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(PostNotFoundException.class)
+    private ResponseEntity<String> postNotFoundHandler(PostNotFoundException exception){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 
