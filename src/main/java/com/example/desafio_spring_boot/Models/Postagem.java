@@ -31,7 +31,7 @@ public class Postagem {
     private LocalDateTime dataCriacao;
 
     //Muitas postagens para somente 1 usuário
-    @NotNull
+    @NotNull(message = "{usuarioId.obrigatorio}")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario autor;
 
@@ -57,10 +57,6 @@ public class Postagem {
         return autor;
     }
 
-    public void setId(Integer id){
-        this.id = id;
-    }
-
     public void setTitulo(String titulo){
         this.titulo = titulo;
     }
@@ -71,10 +67,6 @@ public class Postagem {
 
     public void setDataCriacao( LocalDateTime dataCriacao){
         this.dataCriacao = dataCriacao;
-    }
-
-    public void setDataAtualizacao(LocalDateTime dataAtualizacao){
-        this.dataAtualizacao = dataAtualizacao;
     }
 
     public void setAutor(Usuario autor){

@@ -1,20 +1,34 @@
 package com.example.desafio_spring_boot.services;
 
 import com.example.desafio_spring_boot.Models.Postagem;
+import com.example.desafio_spring_boot.Models.Usuario;
+import com.example.desafio_spring_boot.dto.PostagemDTO;
+import com.example.desafio_spring_boot.exceptions.UserNotFoundException;
 import com.example.desafio_spring_boot.repository.PostagemRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.desafio_spring_boot.repository.UsuarioRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class PostagemService {
 
-    @Autowired
-    PostagemRepository postagemRepository;
+    private final PostagemRepository postagemRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    public void criar(Postagem postagem){
+    public void criar(PostagemDTO postagemDTO){
+        Usuario usuario = usuarioRepository.findById(postagemDTO.getAutorId()).orElseThrow(
+                ()->new UserNotFoundException("Usuário com Id:" + postagemDTO.getAutorId() + " não encontrado.")
+        );
+
+        Postagem postagem = new Postagem();
+        postagem.setTitulo(postagemDTO.getTitulo());
+        postagem.setConteudo(postagemDTO.getConteudo());
+        postagem.setDataCriacao(postagemDTO.getDataCriacao());
+        postagem.setAutor(usuario);
+
         postagemRepository.save(postagem);
     }
 
@@ -22,16 +36,8 @@ public class PostagemService {
         return postagemRepository.findAll();
     }
 
-    public Postagem listarPorAutor(Integer id){
-        Optional<Postagem> optional = postagemRepository.findById(id);
-        if(optional.isPresent()){
-            return optional.get();
-        }
-        return null;
+    public List<Postagem> listarPorIdAutor(Integer id){
+        return postagemRepository.findByAutor_Id(id);
     }
-
-
-
-
 
 }

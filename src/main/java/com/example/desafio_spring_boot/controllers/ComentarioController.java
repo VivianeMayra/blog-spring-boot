@@ -1,9 +1,8 @@
 package com.example.desafio_spring_boot.controllers;
-
 import com.example.desafio_spring_boot.Models.Comentario;
 import com.example.desafio_spring_boot.services.ComentarioService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,10 +10,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/comentarios")
+@RequiredArgsConstructor
 public class ComentarioController {
 
-    @Autowired
-    ComentarioService comentarioService;
+    private final ComentarioService comentarioService;
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
