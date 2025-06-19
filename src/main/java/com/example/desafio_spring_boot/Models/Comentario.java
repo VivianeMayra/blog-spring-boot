@@ -7,8 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
-//Um usuário pode tanto criar novas postagem, como adicionar um comentário em qualquer postagem existente. As
-//funcionalidades de editar e excluir, tanto postagem quanto comentários, só são permitidas
+//Um usuário pode tanto criar novas postagem, como adicionar um comentário em qualquer postagem existente. [OK]
+// As funcionalidades de editar e excluir, tanto postagem quanto comentários, só são permitidas
 //a serem realizadas pelo usuário que criou a entidade em questão (pelo usuário com id correspondente)
 
 
@@ -73,6 +73,10 @@ public class Comentario {
 
     public void setDataCriacao(LocalDateTime dataCriacao){
         this.dataCriacao = dataCriacao;
+    }
+
+    public void setDataAtualizacao(LocalDateTime dataAtualizacao){
+        this.dataAtualizacao = dataAtualizacao;
     }
 
     public void setAutor(Usuario autor) {

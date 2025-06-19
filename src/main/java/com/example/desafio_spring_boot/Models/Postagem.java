@@ -69,6 +69,10 @@ public class Postagem {
         this.dataCriacao = dataCriacao;
     }
 
+    public void setDataAtualizacao(LocalDateTime dataAtualizacao){
+        this.dataAtualizacao = dataAtualizacao;
+    }
+
     public void setAutor(Usuario autor){
         this.autor = autor;
     }

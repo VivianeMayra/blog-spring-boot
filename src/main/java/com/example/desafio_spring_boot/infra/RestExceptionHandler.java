@@ -1,5 +1,6 @@
 package com.example.desafio_spring_boot.infra;
 
+import com.example.desafio_spring_boot.exceptions.CommentNotFoundException;
 import com.example.desafio_spring_boot.exceptions.PostNotFoundException;
 import com.example.desafio_spring_boot.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(PostNotFoundException.class)
     private ResponseEntity<String> postNotFoundHandler(PostNotFoundException exception){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+
+    private ResponseEntity<String> commentNotFoundHandler(CommentNotFoundException exception){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 

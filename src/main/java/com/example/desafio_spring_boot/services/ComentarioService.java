@@ -4,6 +4,7 @@ import com.example.desafio_spring_boot.Models.Comentario;
 import com.example.desafio_spring_boot.Models.Postagem;
 import com.example.desafio_spring_boot.Models.Usuario;
 import com.example.desafio_spring_boot.dto.ComentarioDTO;
+import com.example.desafio_spring_boot.exceptions.CommentNotFoundException;
 import com.example.desafio_spring_boot.exceptions.PostNotFoundException;
 import com.example.desafio_spring_boot.exceptions.UserNotFoundException;
 import com.example.desafio_spring_boot.repository.ComentarioRepository;
@@ -39,5 +40,30 @@ public class ComentarioService {
 
     public List<Comentario> listarTodas(){
         return comentarioRepository.findAll();
+    }
+
+    public Comentario listarPorId(Integer id){
+        return comentarioRepository.findById(id).orElseThrow(() ->
+                new CommentNotFoundException("Comentário com Id:" + id + " não encontrado."));
+    }
+
+    public Comentario atualizar(Integer idAutor,Integer idComentario, ComentarioDTO comentarioDTO){
+
+        Comentario comentario =listarPorId(idComentario);
+
+        if(comentario.getAutor().getId() == idAutor){
+            comentario.setConteudo(comentarioDTO.getConteudo());
+            comentario.setDataAtualizacao(comentarioDTO.getDataAtualizacao());
+        }
+
+        return comentarioRepository.save(comentario);
+    }
+
+    public void deletar(Integer idAutor, Integer idComentario){
+        Comentario comentario = listarPorId(idComentario);
+
+        if(comentario.getAutor().getId() == idAutor){
+            comentarioRepository.delete(comentario);
+        }
     }
 }

@@ -26,4 +26,21 @@ public class ComentarioController {
     public List<Comentario> listarComentarios(){
         return comentarioService.listarTodas();
     }
+
+    @GetMapping("{id}")
+    public Comentario listarPorId(@PathVariable Integer id){
+        return comentarioService.listarPorId(id);
+    }
+
+    @PatchMapping("/autor/{idAutor}/comment/{idComentario}")
+    public Comentario atualizarComentario(@PathVariable Integer idAutor, @PathVariable Integer idComentario, @RequestBody ComentarioDTO comentarioDTO){
+        return comentarioService.atualizar(idAutor, idComentario, comentarioDTO);
+    }
+
+    @DeleteMapping("/autor/{idAutor}/comment/{idComentario}")
+    public void deletarComentario(@PathVariable Integer idAutor, @PathVariable Integer idComentario){
+        comentarioService.deletar(idAutor, idComentario);
+    }
+
+
 }

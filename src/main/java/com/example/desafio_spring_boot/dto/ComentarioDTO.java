@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 public class ComentarioDTO {
     private String conteudo;
     private LocalDateTime dataCriacao;
+    private LocalDateTime dataAtualizacao;
     private Integer autorId;
     private Integer postagemId;
 
@@ -22,5 +23,9 @@ public class ComentarioDTO {
 
     public Integer getPostagemId(){
         return postagemId;
+    }
+
+    public LocalDateTime getDataAtualizacao(){
+        return dataAtualizacao;
     }
 }

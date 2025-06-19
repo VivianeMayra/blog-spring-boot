@@ -28,8 +28,23 @@ public class PostagemController {
         return postagemService.listarTodas();
     }
 
+    @GetMapping("{id}")
+    public Postagem listarPorId(@PathVariable Integer id){
+        return  postagemService.listarPorId(id);
+    }
+
     @GetMapping("/autor/{id}")
     public List<Postagem> listarPorAutor(@PathVariable Integer id){
         return postagemService.listarPorIdAutor(id);
+    }
+
+    @PatchMapping("/autor/{idAutor}/post/{idPost}")
+    public Postagem atualizarPostagem(@PathVariable Integer idAutor, @PathVariable  Integer idPost, @RequestBody PostagemDTO postagemDTO ){
+        return postagemService.atualizarPost(idAutor,idPost,postagemDTO);
+    }
+
+    @DeleteMapping("/autor/{idAutor}/post/{idPost}")
+    public void deletarPost(@PathVariable Integer idAutor, @PathVariable  Integer idPost){
+        postagemService.deletarPostagem(idAutor, idPost);
     }
 }

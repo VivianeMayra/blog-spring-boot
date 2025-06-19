@@ -5,6 +5,7 @@ public class PostagemDTO {
     private String titulo;
     private String conteudo;
     private LocalDateTime dataCriacao;
+    private LocalDateTime dataAtualizacao;
     private Integer autorId;
 
     public String getTitulo(){
@@ -17,6 +18,10 @@ public class PostagemDTO {
 
     public LocalDateTime getDataCriacao(){
         return dataCriacao;
+    }
+
+    public LocalDateTime getDataAtualizacao(){
+        return dataAtualizacao;
     }
 
     public Integer getAutorId(){
