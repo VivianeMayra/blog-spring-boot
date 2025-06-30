@@ -1,12 +1,9 @@
 package com.example.desafio_spring_boot.services;
-
 import com.example.desafio_spring_boot.Models.Comentario;
 import com.example.desafio_spring_boot.Models.Postagem;
 import com.example.desafio_spring_boot.Models.Usuario;
 import com.example.desafio_spring_boot.dto.ComentarioDTO;
-import com.example.desafio_spring_boot.exceptions.CommentNotFoundException;
-import com.example.desafio_spring_boot.exceptions.PostNotFoundException;
-import com.example.desafio_spring_boot.exceptions.UserNotFoundException;
+import com.example.desafio_spring_boot.exceptions.NotFoundException;
 import com.example.desafio_spring_boot.repository.ComentarioRepository;
 import com.example.desafio_spring_boot.repository.PostagemRepository;
 import com.example.desafio_spring_boot.repository.UsuarioRepository;
@@ -23,11 +20,11 @@ public class ComentarioService {
 
     public void criar(ComentarioDTO comentarioDTO){
         Usuario autor = usuarioRepository.findById(comentarioDTO.getAutorId()).orElseThrow(
-                () -> new UserNotFoundException("Usuário com Id:" + comentarioDTO.getAutorId() + " não encontrado."));
+                () -> new NotFoundException("Usuário com Id:" + comentarioDTO.getAutorId() + " não encontrado."));
 
 
         Postagem postagem = postagemRepository.findById(comentarioDTO.getPostagemId()).orElseThrow(
-                () -> new PostNotFoundException("Postagem com Id: " + comentarioDTO.getPostagemId() + " não encontrado."));
+                () -> new NotFoundException("Postagem com Id: " + comentarioDTO.getPostagemId() + " não encontrado."));
 
         Comentario comentario = new Comentario();
         comentario.setConteudo(comentarioDTO.getConteudo());
@@ -44,7 +41,7 @@ public class ComentarioService {
 
     public Comentario listarPorId(Integer id){
         return comentarioRepository.findById(id).orElseThrow(() ->
-                new CommentNotFoundException("Comentário com Id:" + id + " não encontrado."));
+                new NotFoundException("Comentário com Id:" + id + " não encontrado."));
     }
 
     public Comentario atualizar(Integer idAutor,Integer idComentario, ComentarioDTO comentarioDTO){

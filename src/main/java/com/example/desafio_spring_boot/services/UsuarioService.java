@@ -1,7 +1,6 @@
 package com.example.desafio_spring_boot.services;
-
 import com.example.desafio_spring_boot.Models.Usuario;
-import com.example.desafio_spring_boot.exceptions.UserNotFoundException;
+import com.example.desafio_spring_boot.exceptions.NotFoundException;
 import com.example.desafio_spring_boot.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,7 @@ public class UsuarioService {
     //Evita NullPointerException
     public Usuario listarPorId(Integer id){
       return usuarioRepository.findById(id).orElseThrow(() ->
-              new UserNotFoundException("Usuário com Id:" + id + " não encontrado."));
+              new NotFoundException("Usuário com Id:" + id + " não encontrado."));
     }
 
     public Usuario atualizar(Integer id, Usuario usuario){

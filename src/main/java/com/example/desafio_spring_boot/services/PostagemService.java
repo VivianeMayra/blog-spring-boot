@@ -1,10 +1,8 @@
 package com.example.desafio_spring_boot.services;
-
 import com.example.desafio_spring_boot.Models.Postagem;
 import com.example.desafio_spring_boot.Models.Usuario;
 import com.example.desafio_spring_boot.dto.PostagemDTO;
-import com.example.desafio_spring_boot.exceptions.PostNotFoundException;
-import com.example.desafio_spring_boot.exceptions.UserNotFoundException;
+import com.example.desafio_spring_boot.exceptions.NotFoundException;
 import com.example.desafio_spring_boot.repository.PostagemRepository;
 import com.example.desafio_spring_boot.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +19,7 @@ public class PostagemService {
 
     public void criar(PostagemDTO postagemDTO){
         Usuario usuario = usuarioRepository.findById(postagemDTO.getAutorId()).orElseThrow(
-                ()->new UserNotFoundException("Usuário com Id:" + postagemDTO.getAutorId() + " não encontrado.")
+                ()->new NotFoundException("Usuário com Id:" + postagemDTO.getAutorId() + " não encontrado.")
         );
 
         Postagem postagem = new Postagem();
@@ -43,7 +41,7 @@ public class PostagemService {
 
     public Postagem listarPorId(Integer id){
         return postagemRepository.findById(id).orElseThrow(() ->
-                new PostNotFoundException("Postagem com Id:" + id + " não encontrado."));
+                new NotFoundException("Postagem com Id:" + id + " não encontrado."));
     }
 
     public Postagem atualizarPost(Integer idAutor, Integer idPostagem, PostagemDTO postagemDTO){
