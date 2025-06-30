@@ -26,11 +26,7 @@ public class ComentarioService {
         Postagem postagem = postagemRepository.findById(comentarioDTO.getPostagemId()).orElseThrow(
                 () -> new NotFoundException("Postagem com Id: " + comentarioDTO.getPostagemId() + " não encontrado."));
 
-        Comentario comentario = new Comentario();
-        comentario.setConteudo(comentarioDTO.getConteudo());
-        comentario.setDataCriacao(comentarioDTO.getDataCriacao());
-        comentario.setAutor(autor);
-        comentario.setPostagem(postagem);
+        Comentario comentario = new Comentario(comentarioDTO.getConteudo(),comentarioDTO.getDataCriacao(),autor,postagem);
 
         comentarioRepository.save(comentario);
     }

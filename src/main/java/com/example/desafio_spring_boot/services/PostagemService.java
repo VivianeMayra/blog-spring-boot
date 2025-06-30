@@ -22,11 +22,8 @@ public class PostagemService {
                 ()->new NotFoundException("Usuário com Id:" + postagemDTO.getAutorId() + " não encontrado.")
         );
 
-        Postagem postagem = new Postagem();
-        postagem.setTitulo(postagemDTO.getTitulo());
-        postagem.setConteudo(postagemDTO.getConteudo());
-        postagem.setDataCriacao(postagemDTO.getDataCriacao());
-        postagem.setAutor(usuario);
+        Postagem postagem = new Postagem(postagemDTO.getTitulo(), postagemDTO.getConteudo(),
+                postagemDTO.getDataCriacao(), usuario);
 
         postagemRepository.save(postagem);
     }
