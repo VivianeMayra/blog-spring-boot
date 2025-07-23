@@ -4,7 +4,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
 //Um usuário pode tanto criar novas postagem, como adicionar um comentário em qualquer postagem existente. [OK]
@@ -19,6 +22,7 @@ import java.time.LocalDateTime;
 @Table(name = "comentarios")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class Comentario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,11 +30,13 @@ public class Comentario {
 
     @NotBlank(message = "{conteudo.obrigatorio}")
     @Size(min = 3, message = "{conteudo.size.min3}")
+    @Setter
     private String conteudo;
 
     @NotNull
     private LocalDateTime dataCriacao;
 
+    @Setter
     private LocalDateTime dataAtualizacao;
 
     //Vários comentários para 1 usuário (N:1)
@@ -42,50 +48,6 @@ public class Comentario {
     @NotNull
     @ManyToOne
     private Postagem postagem;
-
-    public Integer getId(){
-        return id;
-    }
-
-    public String getConteudo(){
-        return conteudo;
-    }
-
-    public LocalDateTime getDataCriacao(){
-        return dataCriacao;
-    }
-
-    public LocalDateTime getDataAtualizacao(){
-        return dataAtualizacao;
-    }
-
-    public Usuario getAutor(){
-        return autor;
-    }
-
-    public Postagem getPostagem(){
-        return postagem;
-    }
-
-    public void setConteudo(String conteudo){
-        this.conteudo = conteudo;
-    }
-
-    public void setDataCriacao(LocalDateTime dataCriacao){
-        this.dataCriacao = dataCriacao;
-    }
-
-    public void setDataAtualizacao(LocalDateTime dataAtualizacao){
-        this.dataAtualizacao = dataAtualizacao;
-    }
-
-    public void setAutor(Usuario autor) {
-        this.autor = autor;
-    }
-
-    public void setPostagem(Postagem postagem){
-        this.postagem = postagem;
-    }
 
     public Comentario(String conteudo, LocalDateTime dataCriacao, Usuario autor, Postagem postagem){
         this.conteudo = conteudo;

@@ -4,7 +4,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 //@OneToMany (1:N) -> Um usuário pode ter vários comentários ou várias postagens:
 //No Spring Boot o relacionamento entre usuário e comentário/postagem utilizamos notações @OneToMany e @ManyToOne para
@@ -15,9 +17,11 @@ import lombok.NoArgsConstructor;
 @Table(name = "usuarios")
 @NoArgsConstructor
 @AllArgsConstructor //Quando eu for atualizar preciso passar um id como parâmetro
+@Getter
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter
     private Integer id;
 
     @NotBlank(message = "{nome.obrigatorio}")
@@ -34,53 +38,4 @@ public class Usuario {
     @NotBlank(message = "{senha.obrigatoria}")
     @Size(min = 8, max = 15, message = "{senha.size.min8.max15}")
     private String senha;
-
-
-    public Integer getId(){
-        return id;
-    }
-
-    public String getNome(){
-        return nome;
-    }
-
-    public String getSobrenome(){
-        return sobrenome;
-    }
-
-    public String getEmail(){
-        return email;
-    }
-
-    public String getSenha(){
-        return senha;
-    }
-
-    public void setId(Integer id){
-        this.id = id;
-    }
-
-    public void setNome(String nome){
-        this.nome = nome;
-    }
-
-    public void setSobrenome(String sobrenome){
-        this.sobrenome = sobrenome;
-    }
-
-    public void setEmail(String email){
-        this.email = email;
-    }
-
-    public void setSenha(String senha){
-        this.senha = senha;
-    }
-
-
-    public Usuario(String nome, String sobrenome, String email, String senha){
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-        this.email = email;
-        this.senha = senha;
-    }
 }
